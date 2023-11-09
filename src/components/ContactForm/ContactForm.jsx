@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -35,6 +35,7 @@ export const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
   const handleSubmit = (values, actions) => {
+    console.log(values);
     const nameExists = contacts.some(
       contact => contact.name.toLowerCase() === values.name.toLowerCase()
     );
@@ -48,7 +49,7 @@ export const ContactForm = () => {
 
   return (
     <Formik
-      initialValues={{ name: '', number: '' }}
+      initialValues={{ name: '', phone: '' }}
       onSubmit={handleSubmit}
       validationSchema={ContactShema}
     >
@@ -61,9 +62,9 @@ export const ContactForm = () => {
         </label>
         <label>
           Number
-          <StyledInput name="number" type="tel" />
+          <StyledInput name="phone" type="tel" />
           <UserPhone />
-          <Error name="number" component="span" />
+          <Error name="phone" component="span" />
         </label>
         <AddContactButton type="submit">Add contact</AddContactButton>
       </StyledForm>

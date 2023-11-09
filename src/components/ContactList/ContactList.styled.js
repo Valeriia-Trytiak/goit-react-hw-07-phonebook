@@ -23,6 +23,7 @@ export const ContactItem = styled.li`
 
   &:hover {
     border-left: 10px solid transparent;
+    cursor: pointer;
   }
 `;
 
