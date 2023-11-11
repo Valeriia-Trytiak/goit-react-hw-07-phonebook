@@ -11,9 +11,17 @@ export const StyledForm = styled(Form)`
 `;
 
 export const Error = styled(ErrorMessage)`
+  position: absolute;
+  top: 30%;
+  left: 0;
   color: ${p => p.theme.colors.error};
   font-size: 14px;
   display: block;
+
+  @media only screen and (min-width: 768px) {
+    top: 25%;
+    left: 0;
+  }
 `;
 
 export const StyledInput = styled(Field)`

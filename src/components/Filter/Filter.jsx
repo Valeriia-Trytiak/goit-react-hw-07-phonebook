@@ -9,7 +9,7 @@ export const Filter = () => {
   const filterName = useSelector(getFilter);
 
   const handleSearchChange = evt => {
-    dispatch(setFilter(evt.target.value));
+    dispatch(setFilter(evt.target.value.trim()));
   };
 
   return (
