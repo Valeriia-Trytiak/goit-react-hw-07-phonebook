@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { getFilter } from 'redux/selectors';
+import { selectFilter } from 'redux/selectors';
 import { setFilter } from 'redux/filterSlice';
 import { FiSearch } from 'react-icons/fi';
 import { Container, SearchField } from './Filter.styled';
 
 export const Filter = () => {
   const dispatch = useDispatch();
-  const filterName = useSelector(getFilter);
+  const filterName = useSelector(selectFilter);
 
   const handleSearchChange = evt => {
     dispatch(setFilter(evt.target.value.trim()));

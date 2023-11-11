@@ -10,7 +10,7 @@ import {
   UserIcon,
   UserPhone,
 } from './ContactForm.styled';
-import { getContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/selectors';
 
 const ContactShema = Yup.object().shape({
   name: Yup.string()
@@ -33,7 +33,7 @@ const ContactShema = Yup.object().shape({
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
   const handleSubmit = (values, actions) => {
     const nameExists = contacts.some(
       contact => contact.name.toLowerCase() === values.name.toLowerCase()
