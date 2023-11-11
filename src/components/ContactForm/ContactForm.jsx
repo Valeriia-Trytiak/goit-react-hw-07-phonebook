@@ -50,7 +50,9 @@ export const ContactForm = () => {
   return (
     <Formik
       initialValues={{ name: '', phone: '' }}
-      onSubmit={handleSubmit}
+      onSubmit={() => {
+        handleSubmit();
+      }}
       validationSchema={ContactShema}
     >
       <StyledForm>

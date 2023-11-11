@@ -1,5 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts } from './operations';
+import { fetchContacts, addContact, deleteContact } from './operations';
+
+const handlePending = state => {
+  state.isLoading = true;
+};
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
 
 const contactSlice = createSlice({
   name: 'contacts',
@@ -8,29 +16,42 @@ const contactSlice = createSlice({
     isLoading: false,
     error: null,
   },
-  reducers: {
-    deleteContact(state, action) {
-      state.items = state.items.filter(item => item.id !== action.payload);
-    },
-  },
   // Добавляем обработку внешних экшенов
   extraReducers: {
-    [fetchContacts.pending](state) {
-      state.isLoading = true;
-    },
+    [fetchContacts.pending]: handlePending,
+    [addContact.pending]: handlePending,
+    [deleteContact.pending]: handlePending,
+    [fetchContacts.rejected]: handleRejected,
+    [addContact.rejected]: handleRejected,
+    [deleteContact.rejected]: handleRejected,
+
     [fetchContacts.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
-      // state.items.push(action.payload);
       state.items = action.payload;
     },
-    [fetchContacts.rejected](state, action) {
+    [addContact.fulfilled](state, action) {
       state.isLoading = false;
-      state.error = action.payload;
+      state.error = null;
+      state.items.push(action.payload);
+    },
+
+    [deleteContact.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const index = state.items.findIndex(
+        contact => contact.id === action.payload.id
+      );
+      state.items.splice(index, 1);
     },
   },
 });
 
 export const contactsReducer = contactSlice.reducer;
 
-export const { deleteContact } = contactSlice.actions;
+// export const { deleteContact } = contactSlice.actions;
+// reducers: {
+//   deleteContact(state, action) {
+//     state.items = state.items.filter(item => item.id !== action.payload);
+//   },
+// },
